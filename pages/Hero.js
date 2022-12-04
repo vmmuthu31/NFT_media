@@ -1,4 +1,5 @@
 import Header from "./Header";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -22,9 +23,13 @@ export default function Hero() {
                   <div className="mt-10 sm:mt-12">
                     <form action="#" className="sm:max-w-xl sm:mx-auto lg:mx-0">
                       <div className="sm:flex">
-                        <a href="/Content" type="submit" className="btn-grad">
+                        <Link
+                          href="/Tutorials"
+                          type="submit"
+                          className="btn-grad"
+                        >
                           Let's Dive in
-                        </a>
+                        </Link>
                       </div>
                       <p className="mt-3 text-sm text-gray-300 sm:mt-4">
                         Start your free 14-day trial, no credit card necessary.

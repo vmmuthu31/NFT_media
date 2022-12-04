@@ -1,4 +1,9 @@
-import { Fragment } from "react";
+import { useCallback, useEffect, useState,Fragment } from "react";
+import { ethers } from "ethers";
+import { ChainId } from "@biconomy/core-types";
+import truncateEthAddress from 'truncate-eth-address'
+import SocialLogin from "@biconomy/web3-auth";
+import SmartAccount from "@biconomy/smart-account";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import {
   ChatAltIcon,
@@ -14,35 +19,25 @@ import {
 } from "@heroicons/react/solid";
 import {
   BellIcon,
-  FireIcon,
+  DocumentIcon,
   HomeIcon,
   MenuIcon,
-  TrendingUpIcon,
   UserGroupIcon,
   XIcon,
 } from "@heroicons/react/outline";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 
-const user = {
-  name: "Chelsea Hagon",
-  email: "chelseahagon@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+
 const navigation = [
-  { name: "Home", href: "#", icon: HomeIcon, current: true },
-  { name: "Communities", href: "#", icon: UserGroupIcon, current: false },
+  { name: "Marketplace", href: "/Tutorials", icon: UserGroupIcon, current: false },
+  { name: "Blog", href: "/Blog", icon: DocumentIcon, current: false },
+  { name: "Media", href: "/Content", icon: HomeIcon, current: true },
 ];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+
 const communities = [
-  { name: "Entertainment", href: "#" },
-  { name: "Sports", href: "#" },
-  { name: "Gaming", href: "#" },
+  { name: "Subscription", href: "/Subscribe" },
+  { name: "UnSubcription", href: "/Unsubscribe" },
 ];
 const explore = [
   {
@@ -62,7 +57,7 @@ const post = [
     replies: "11K",
     views: "32.7k",
     author: {
-      name: "The Phoenix Guild",
+      name: "ThePhoenixGuild",
       imageUrl:
         "https://pbs.twimg.com/profile_images/1564689303795814400/6XAwK3Oz_400x400.jpg",
       href: "#",
@@ -86,7 +81,7 @@ const post = [
     replies: "10K",
     views: "42.7k",
     author: {
-      name: "The Phoenix Guild",
+      name: "ThePhoenixGuild",
       imageUrl:
         "https://pbs.twimg.com/profile_images/1564689303795814400/6XAwK3Oz_400x400.jpg",
       href: "#",
@@ -109,7 +104,7 @@ const post = [
     replies: "10K",
     views: "42.7k",
     author: {
-      name: "The Phoenix Guild",
+      name: "ThePhoenixGuild",
       imageUrl:
         "https://pbs.twimg.com/profile_images/1564689303795814400/6XAwK3Oz_400x400.jpg",
       href: "#",
@@ -135,7 +130,7 @@ const whoToFollow = [
     handle: "PhoenixGuildHQ",
     href: "#",
     imageUrl:
-      "https://devfolio-prod.s3.ap-south-1.amazonaws.com/hackathons/1ac2c64899d74b7f8941e83ebc7e083a/projects/1d90b78269224dc9b6c63f9cb770b003/f32594cc-3202-408a-8df4-e462a6708364.jpeg",
+      "https://pbs.twimg.com/profile_images/1564689303795814400/6XAwK3Oz_400x400.jpg",
 
   },
   {
@@ -152,6 +147,95 @@ function classNames(...classes : string[]): string {
 }
 
 const Home = () => {
+  const [provider, setProvider] = useState<any>();
+  const [account, setAccount] = useState<string>();
+  const [smartAccount, setSmartAccount] = useState<SmartAccount | null>(null);
+  const [scwAddress, setScwAddress] = useState("");
+  const [scwLoading, setScwLoading] = useState(false);
+  const [socialLoginSDK, setSocialLoginSDK] = useState<SocialLogin | null>(
+    null
+  );
+
+  const connectWeb3 = useCallback(async () => {
+    if (typeof window === "undefined") return;
+    console.log("socialLoginSDK", socialLoginSDK);
+    if (socialLoginSDK?.provider) {
+      const web3Provider = new ethers.providers.Web3Provider(
+        socialLoginSDK.provider
+      );
+      setProvider(web3Provider);
+      const accounts = await web3Provider.listAccounts();
+      setAccount(accounts[0]);
+      return;
+    }
+    if (socialLoginSDK) {
+      socialLoginSDK.showWallet();
+      return socialLoginSDK;
+    }
+    const sdk = new SocialLogin();
+    await sdk.init(ethers.utils.hexValue(80001));
+    setSocialLoginSDK(sdk);
+    sdk.showConnectModal();
+    sdk.showWallet();
+    return socialLoginSDK;
+  }, [socialLoginSDK]);
+
+  // if wallet already connected close widget
+  useEffect(() => {
+    console.log("hidelwallet");
+    if (socialLoginSDK && socialLoginSDK.provider) {
+      socialLoginSDK.hideWallet();
+    }
+  }, [account, socialLoginSDK]);
+
+  // after metamask login -> get provider event
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (account) {
+        clearInterval(interval);
+      }
+      if (socialLoginSDK?.provider && !account) {
+        connectWeb3();
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [account, connectWeb3, socialLoginSDK]);
+
+  const disconnectWeb3 = async () => {
+    if (!socialLoginSDK || !socialLoginSDK.web3auth) {
+      console.error("Web3Modal not initialized.");
+      return;
+    }
+    await socialLoginSDK.logout();
+    socialLoginSDK.hideWallet();
+    setProvider(undefined);
+    setAccount(undefined);
+    setScwAddress("");
+  };
+
+  
+
+  useEffect(() => {
+    async function setupSmartAccount() {
+      setScwAddress("");
+      setScwLoading(true);
+      const smartAccount = new SmartAccount(provider, {
+        activeNetworkId: ChainId.GOERLI,
+        supportedNetworksIds: [ChainId.GOERLI],
+      });
+      await smartAccount.init();
+      const context = smartAccount.getSmartAccountContext();
+      setScwAddress(context.baseWallet.getAddress());
+      setSmartAccount(smartAccount);
+      setScwLoading(false);
+    }
+    if (!!provider && !!account) {
+      setupSmartAccount();
+      console.log("Provider...", provider);
+    }
+  }, [account, provider]);
   return (
       <>
         <div className="min-h-full">
@@ -167,12 +251,12 @@ const Home = () => {
             {({ open }) => (
               <>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
+                  <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-5">
                     <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                       <div className="flex-shrink-0 flex items-center">
-                        <a href="/">
+                        <Link href="/">
                           <h1 className="text-2xl font-bold">NFT Media</h1>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     
@@ -227,6 +311,21 @@ const Home = () => {
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </a>
                     </div>
+                    {account && <div>Address: {truncateEthAddress(account)}</div>}
+              
+                    {account ? (
+                      <button
+                        className="btn-grad1 px-4  "
+                        onClick={disconnectWeb3}
+                      >
+                        Disconnect Wallet
+                      </button>
+                    ) : (
+                      <button className="btn-grad px-4" onClick={connectWeb3}>
+                        Connect Wallet
+                      </button>
+                      
+                    )}
                   </div>
                   </div>
                 </div>
@@ -264,7 +363,7 @@ const Home = () => {
                 <Popover.Panel as="nav" className="lg:hidden" aria-label="Global">
                   <div className="max-w-3xl mx-auto px-2 pt-2 pb-3 space-y-1 sm:px-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         aria-current={item.current ? "page" : undefined}
@@ -276,7 +375,7 @@ const Home = () => {
                         )}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                   
@@ -290,12 +389,12 @@ const Home = () => {
                     </a>
   
                     <div className="mt-6 flex justify-center">
-                      <a
+                      <Link
                         href="#"
                         className="text-base font-medium text-gray-900 hover:underline"
                       >
                         Blogs
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </Popover.Panel>
@@ -303,7 +402,7 @@ const Home = () => {
             )}
           </Popover>
   
-          <div className="py-10">
+          <div className="py-5">
             <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
                 <nav
@@ -312,7 +411,7 @@ const Home = () => {
                 >
                   <div className="pb-8 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -333,7 +432,7 @@ const Home = () => {
                           aria-hidden="true"
                         />
                         <span className="truncate">{item.name}</span>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                   <div className="pt-10">
@@ -341,20 +440,20 @@ const Home = () => {
                       className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                       id="communities-headline"
                     >
-                      My communities
+                      My Subscription
                     </p>
                     <div
                       className="mt-3 space-y-2"
                       aria-labelledby="communities-headline"
                     >
                       {communities.map((community) => (
-                        <a
+                        <Link
                           key={community.name}
                           href={community.href}
                           className="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
                         >
                           <span className="truncate">{community.name}</span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -369,17 +468,18 @@ const Home = () => {
                       className="mt-3 space-y-2"
                       aria-labelledby="communities-headline"
                     >
-                      {communities.map((community) => (
-                        <a
+                      {explore.map((community) => (
+                        <Link
                           key={community.name}
                           href={community.href}
                           className="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
                         >
                           <span className="truncate">{community.name}</span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
+                  
                 </nav>
               </div>
               <main className="lg:col-span-9 xl:col-span-6">
@@ -404,7 +504,7 @@ const Home = () => {
                       aria-label="Tabs"
                     >
                       {tabs.map((tab, tabIdx) => (
-                        <a
+                        <Link
                           key={tab.name}
                           href={tab.href}
                           aria-current={tab.current ? "page" : undefined}
@@ -425,233 +525,243 @@ const Home = () => {
                               "absolute inset-x-0 bottom-0 h-0.5"
                             )}
                           />
-                        </a>
+                        </Link>
                       ))}
                     </nav>
+                    
                   </div>
                 </div>
                 <div className="mt-4">
-                  <h1 className="sr-only">Recent post</h1>
-                  <ul role="list" className="space-y-4">
-                    {post.map((posts) => (
-                      <li
-                        key={posts.id}
-                        className="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg"
-                      >
-                        <article aria-labelledby={"question-title-" + posts.id}>
-                          <div>
-                            <div className="flex space-x-3">
-                              <div className="flex-shrink-0">
-                                <img
-                                  className="h-10 w-10 rounded-full"
-                                  src={posts.author.imageUrl}
-                                  alt=""
-                                />
-                              </div>
-                              
-                              <div className="min-w-0 flex-1">
-                                <p className="text-sm font-medium text-gray-900">
-                                  <a
-                                    href={posts.author.href}
-                                    className="hover:underline"
-                                  >
-                                    {posts.author.name}
-                                  </a>
-                                </p>
-                                <p className="text-sm text-gray-500">
-                                  <a
-                                    href={posts.href}
-                                    className="hover:underline"
-                                  >
-                                    <time dateTime={posts.datetime}>
-                                      {posts.date}
-                                    </time>
-                                  </a>
-                                </p>
-                              </div>
-                              <div className="flex-shrink-0 self-center flex">
-                                <Menu
-                                  as="div"
-                                  className="relative inline-block text-left"
-                                >
-                                  <div>
-                                    <Menu.Button className="-m-2 p-2 rounded-full flex items-center text-gray-400 hover:text-gray-600">
-                                      <span className="sr-only">
-                                        Open options
-                                      </span>
-                                      <DotsVerticalIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                      />
-                                    </Menu.Button>
-                                  </div>
-  
-                                  <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95"
-                                  >
-                                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                      <div className="py-1">
-                                        <Menu.Item>
-                                          {({ active }) => (
-                                            <a
-                                              href="#"
-                                              className={classNames(
-                                                active
-                                                  ? "bg-gray-100 text-gray-900"
-                                                  : "text-gray-700",
-                                                "flex px-4 py-2 text-sm"
-                                              )}
-                                            >
-                                              <StarIcon
-                                                className="mr-3 h-5 w-5 text-gray-400"
-                                                aria-hidden="true"
-                                              />
-                                              <span>Add to favorites</span>
-                                            </a>
-                                          )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                          {({ active }) => (
-                                            <a
-                                              href="#"
-                                              className={classNames(
-                                                active
-                                                  ? "bg-gray-100 text-gray-900"
-                                                  : "text-gray-700",
-                                                "flex px-4 py-2 text-sm"
-                                              )}
-                                            >
-                                              <CodeIcon
-                                                className="mr-3 h-5 w-5 text-gray-400"
-                                                aria-hidden="true"
-                                              />
-                                              <span>Embed</span>
-                                            </a>
-                                          )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                          {({ active }) => (
-                                            <a
-                                              href="#"
-                                              className={classNames(
-                                                active
-                                                  ? "bg-gray-100 text-gray-900"
-                                                  : "text-gray-700",
-                                                "flex px-4 py-2 text-sm"
-                                              )}
-                                            >
-                                              <FlagIcon
-                                                className="mr-3 h-5 w-5 text-gray-400"
-                                                aria-hidden="true"
-                                              />
-                                              <span>Report content</span>
-                                            </a>
-                                          )}
-                                        </Menu.Item>
-                                      </div>
-                                    </Menu.Items>
-                                  </Transition>
-                                </Menu>
-                              </div>
-                            </div>
-                            <img
-                              id={"question-title-" + posts.id}
-                              className="mt-4 text-base font-medium text-gray-900"
-                              src={posts.image}
-                            />
-                            {posts.vedio ? ( <video width="520"   controls>
-                              <source src={posts.vedio} type="video/mp4" />
-                              </video>):
-                              (<></>)}
-                           
+                {account ? (
+                     <><h1 className="sr-only">Recent post</h1>
+                     <ul role="list" className="space-y-4">
+                       {post.map((posts) => (
+                         <li
+                           key={posts.id}
+                           className="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg"
+                         >
+                           <article aria-labelledby={"question-title-" + posts.id}>
+                             <div>
+                               <div className="flex space-x-3">
+                                 <div className="flex-shrink-0">
+                                   <img
+                                     className="h-10 w-10 rounded-full"
+                                     src={posts.author.imageUrl}
+                                     alt=""
+                                   />
+                                 </div>
+                                 
+                                 <div className="min-w-0 flex-1">
+                                   <p className="text-sm font-medium text-gray-900">
+                                     <a
+                                       href={posts.author.href}
+                                       className="hover:underline"
+                                     >
+                                       {posts.author.name}
+                                     </a>
+                                   </p>
+                                   <p className="text-sm text-gray-500">
+                                     <a
+                                       href={posts.href}
+                                       className="hover:underline"
+                                     >
+                                       <time dateTime={posts.datetime}>
+                                         {posts.date}
+                                       </time>
+                                     </a>
+                                   </p>
+                                 </div>
+                                 <div className="flex-shrink-0 self-center flex">
+                                   <Menu
+                                     as="div"
+                                     className="relative inline-block text-left"
+                                   >
+                                     <div>
+                                       <Menu.Button className="-m-2 p-2 rounded-full flex items-center text-gray-400 hover:text-gray-600">
+                                         <span className="sr-only">
+                                           Open options
+                                         </span>
+                                         <DotsVerticalIcon
+                                           className="h-5 w-5"
+                                           aria-hidden="true"
+                                         />
+                                       </Menu.Button>
+                                     </div>
+     
+                                     <Transition
+                                       as={Fragment}
+                                       enter="transition ease-out duration-100"
+                                       enterFrom="transform opacity-0 scale-95"
+                                       enterTo="transform opacity-100 scale-100"
+                                       leave="transition ease-in duration-75"
+                                       leaveFrom="transform opacity-100 scale-100"
+                                       leaveTo="transform opacity-0 scale-95"
+                                     >
+                                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                         <div className="py-1">
+                                           <Menu.Item>
+                                             {({ active }) => (
+                                               <a
+                                                 href="#"
+                                                 className={classNames(
+                                                   active
+                                                     ? "bg-gray-100 text-gray-900"
+                                                     : "text-gray-700",
+                                                   "flex px-4 py-2 text-sm"
+                                                 )}
+                                               >
+                                                 <StarIcon
+                                                   className="mr-3 h-5 w-5 text-gray-400"
+                                                   aria-hidden="true"
+                                                 />
+                                                 <span>Add to favorites</span>
+                                               </a>
+                                             )}
+                                           </Menu.Item>
+                                           <Menu.Item>
+                                             {({ active }) => (
+                                               <a
+                                                 href="#"
+                                                 className={classNames(
+                                                   active
+                                                     ? "bg-gray-100 text-gray-900"
+                                                     : "text-gray-700",
+                                                   "flex px-4 py-2 text-sm"
+                                                 )}
+                                               >
+                                                 <CodeIcon
+                                                   className="mr-3 h-5 w-5 text-gray-400"
+                                                   aria-hidden="true"
+                                                 />
+                                                 <span>Embed</span>
+                                               </a>
+                                             )}
+                                           </Menu.Item>
+                                           <Menu.Item>
+                                             {({ active }) => (
+                                               <a
+                                                 href="#"
+                                                 className={classNames(
+                                                   active
+                                                     ? "bg-gray-100 text-gray-900"
+                                                     : "text-gray-700",
+                                                   "flex px-4 py-2 text-sm"
+                                                 )}
+                                               >
+                                                 <FlagIcon
+                                                   className="mr-3 h-5 w-5 text-gray-400"
+                                                   aria-hidden="true"
+                                                 />
+                                                 <span>Report content</span>
+                                               </a>
+                                             )}
+                                           </Menu.Item>
+                                         </div>
+                                       </Menu.Items>
+                                     </Transition>
+                                   </Menu>
+                                 </div>
+                               </div>
+                               <img
+                                 id={"question-title-" + posts.id}
+                                 className="mt-4 text-base font-medium text-gray-900"
+                                 src={posts.image}
+                               />
+                               {posts.vedio ? ( <video width="520"  autoPlay muted>
+                                 <source src={posts.vedio} type="video/mp4" />
+                                 </video>):
+                                 (<></>)}
+                               <h2
+                                 id={"question-title-" + posts.id}
+                                 className="mt-4 text-base font-medium text-gray-900"
+                               >
+                                 {posts.title}
+                               </h2>
+                             </div>
+                             <div
+                               className="mt-2 text-sm text-gray-700 space-y-4"
+                               dangerouslySetInnerHTML={{ __html: posts.body }}
+                             />
+                             <div className="mt-6 flex justify-between space-x-8">
+                               <div className="flex space-x-6">
+                                 <span className="inline-flex items-center text-sm">
+                                   <button
+                                     type="button"
+                                     className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
+                                   >
+                                     <ThumbUpIcon
+                                       className="h-5 w-5"
+                                       aria-hidden="true"
+                                     />
+                                     <span className="font-medium text-gray-900">
+                                       {posts.likes}
+                                     </span>
+                                     <span className="sr-only">likes</span>
+                                   </button>
+                                 </span>
+                                 <span className="inline-flex items-center text-sm">
+                                   <button
+                                     type="button"
+                                     className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
+                                   >
+                                     <ChatAltIcon
+                                       className="h-5 w-5"
+                                       aria-hidden="true"
+                                     />
+                                     <span className="font-medium text-gray-900">
+                                       {posts.replies}
+                                     </span>
+                                     <span className="sr-only">replies</span>
+                                   </button>
+                                 </span>
+                                 <span className="inline-flex items-center text-sm">
+                                   <button
+                                     type="button"
+                                     className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
+                                   >
+                                     <EyeIcon
+                                       className="h-5 w-5"
+                                       aria-hidden="true"
+                                     />
+                                     <span className="font-medium text-gray-900">
+                                       {posts.views}
+                                     </span>
+                                     <span className="sr-only">views</span>
+                                   </button>
+                                 </span>
+                               </div>
+                               <div className="flex text-sm">
+                                 <span className="inline-flex items-center text-sm">
+                                   <button
+                                     type="button"
+                                     className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
+                                   >
+                                     <ShareIcon
+                                       className="h-5 w-5"
+                                       aria-hidden="true"
+                                     />
+                                     <span className="font-medium text-gray-900">
+                                       Share
+                                     </span>
+                                   </button>
+                                 </span>
+                               </div>
+                             </div>
+                           </article>
+                         </li>
+                       ))}
+                     </ul></>
+                    ) : (
+                      <div className=" flex justify-center ">                      
+                      <h2 className="py-3 px-3">Please Subscribe our Channel</h2>
 
-  
-                            <h2
-                              id={"question-title-" + posts.id}
-                              className="mt-4 text-base font-medium text-gray-900"
-                            >
-                              {posts.title}
-                            </h2>
-                          </div>
-                          <div
-                            className="mt-2 text-sm text-gray-700 space-y-4"
-                            dangerouslySetInnerHTML={{ __html: posts.body }}
-                          />
-                          <div className="mt-6 flex justify-between space-x-8">
-                            <div className="flex space-x-6">
-                              <span className="inline-flex items-center text-sm">
-                                <button
-                                  type="button"
-                                  className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
-                                >
-                                  <ThumbUpIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="font-medium text-gray-900">
-                                    {posts.likes}
-                                  </span>
-                                  <span className="sr-only">likes</span>
-                                </button>
-                              </span>
-                              <span className="inline-flex items-center text-sm">
-                                <button
-                                  type="button"
-                                  className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
-                                >
-                                  <ChatAltIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="font-medium text-gray-900">
-                                    {posts.replies}
-                                  </span>
-                                  <span className="sr-only">replies</span>
-                                </button>
-                              </span>
-                              <span className="inline-flex items-center text-sm">
-                                <button
-                                  type="button"
-                                  className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
-                                >
-                                  <EyeIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="font-medium text-gray-900">
-                                    {posts.views}
-                                  </span>
-                                  <span className="sr-only">views</span>
-                                </button>
-                              </span>
-                            </div>
-                            <div className="flex text-sm">
-                              <span className="inline-flex items-center text-sm">
-                                <button
-                                  type="button"
-                                  className="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
-                                >
-                                  <ShareIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="font-medium text-gray-900">
-                                    Share
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
-                          </div>
-                        </article>
-                      </li>
-                    ))}
-                  </ul>
+                      <button className="btn-grad px-4" >
+                        Subscribe US
+                      </button>
+                      </div>
+
+                    )}
+                  
                 </div>
               </main>
               <aside className="hidden xl:block xl:col-span-4">

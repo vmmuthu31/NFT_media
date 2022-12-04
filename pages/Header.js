@@ -3,14 +3,13 @@ import { useState, useCallback, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { HiXMark } from "react-icons/hi2";
-import { ethers } from "ethers";
-import { ChainId } from "@biconomy/core-types";
-import SocialLogin from "@biconomy/web3-auth";
-import SmartAccount from "@biconomy/smart-account";
+import truncateEthAddress from "truncate-eth-address";
+
+import Link from "next/link";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "/Services" },
+  { name: "Services", href: "/Tutorials" },
   { name: "Our Team", href: "/Team" },
   { name: "Blog", href: "/Blog" },
 ];
@@ -142,12 +141,10 @@ export default function Header() {
                 className=" w-16 py-4"
                 src="https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/LOGOOO'.png"
               />
+
               <h1 className="h-8 py-7  text-3xl font-bold text-white">
                 NFT Media
               </h1>
-            </div>
-            <div className="text-white mr-24 ">
-              {account && <div>{account}</div>}
             </div>
             <div className="flex lg:hidden">
               <button
@@ -161,18 +158,20 @@ export default function Header() {
             </div>
 
             <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-              <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-6">
+              <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-2">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className="font-semibold px-3 py-3 text-white hover:text-white"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
-
+              <div className="text-white py-3 px-3 ">
+                {account && <div>Address: {truncateEthAddress(account)}</div>}
+              </div>
               {account ? (
                 <button className="btn-grad1 px-2 " onClick={disconnectWeb3}>
                   Disconnect Wallet
@@ -214,28 +213,14 @@ export default function Header() {
                 <div className="-my-6 divide-y divide-gray-500/10">
                   <div className="space-y-2 py-6">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className="-mx-3 block rounded-lg py-3 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
-                  </div>
-                  <div className="py-6">
-                    {account ? (
-                      <button
-                        className="btn-grad1 px-4 "
-                        onClick={disconnectWeb3}
-                      >
-                        Disconnect Wallet
-                      </button>
-                    ) : (
-                      <button className="btn-grad px-4" onClick={connectWeb3}>
-                        Connect Wallet
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
