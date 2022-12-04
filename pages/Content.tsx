@@ -81,6 +81,29 @@ const post = [
      `,
   },
   {
+    id: "816",
+    likes: "32K",
+    replies: "10K",
+    views: "42.7k",
+    author: {
+      name: "The Phoenix Guild",
+      imageUrl:
+        "https://pbs.twimg.com/profile_images/1564689303795814400/6XAwK3Oz_400x400.jpg",
+      href: "#",
+    },
+    date: "December 3 at 11:00 AM",
+    datetime: "2022-12-03T11:00:00",
+    vedio: "https://bafybeiflbvcusnb3vnjda3il6tdijajgwaeuraqnk6i5ndxq42pyugh2du.ipfs.dweb.link/videopost2.mp4",
+    href: "#",
+    title:
+      "Hackers at work 😋 Use @tatum_io and complete the project super fast 😉",
+    body: `
+      <p>
+      #TPGHackerHouse #Filecoin #IPFS #Gingari @PhoenixGuildHQ @Chingari_IN @devfolio @ETHGlobal @Filecoin @IPFS
+      </p>
+     `,
+  },
+  {
     id: "81615",
     likes: "32K",
     replies: "10K",
@@ -113,6 +136,7 @@ const whoToFollow = [
     href: "#",
     imageUrl:
       "https://devfolio-prod.s3.ap-south-1.amazonaws.com/hackathons/1ac2c64899d74b7f8941e83ebc7e083a/projects/1d90b78269224dc9b6c63f9cb770b003/f32594cc-3202-408a-8df4-e462a6708364.jpeg",
+
   },
   {
     name: "Gryffindors",
@@ -146,7 +170,7 @@ const Home = () => {
                   <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
                     <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                       <div className="flex-shrink-0 flex items-center">
-                        <a href="#">
+                        <a href="/">
                           <h1 className="text-2xl font-bold">NFT Media</h1>
                         </a>
                       </div>
@@ -181,10 +205,10 @@ const Home = () => {
                     <div className="border-t justify-center border-gray-200 pt-4 px-5">
                   <div className="max-w-3xl mx-auto  flex items-center sm:px-6">
                     <div className="flex-shrink-0">
-                    <div className="flex justify-center px-8 bg-white rounded-lg shadow">
+                    <div className="flex justify-center px-8 py-2 bg-white rounded-lg shadow">
                       <a
                         href="#"
-                        className="text-sm font-medium pt-2 text-gray-900 hover:underline"
+                        className="text-sm font-medium pt-1 text-gray-900 hover:underline"
                       >
                         Go Premium
                       </a>
@@ -255,43 +279,7 @@ const Home = () => {
                       </a>
                     ))}
                   </div>
-                  <div className="border-t border-gray-200 pt-4">
-                    <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
-                      <div className="flex-shrink-0">
-                        <img
-                          className="h-10 w-10 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <div className="text-base font-medium text-gray-800">
-                          {user.name}
-                        </div>
-                        <div className="text-sm font-medium text-gray-500">
-                          {user.email}
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-                    </div>
-                    <div className="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
-                      {userNavigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                        >
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                  
   
                   <div className="mt-6 max-w-3xl mx-auto px-4 sm:px-6">
                     <a
@@ -306,7 +294,7 @@ const Home = () => {
                         href="#"
                         className="text-base font-medium text-gray-900 hover:underline"
                       >
-                        Go Premium
+                        Blogs
                       </a>
                     </div>
                   </div>
@@ -460,6 +448,7 @@ const Home = () => {
                                   alt=""
                                 />
                               </div>
+                              
                               <div className="min-w-0 flex-1">
                                 <p className="text-sm font-medium text-gray-900">
                                   <a
@@ -576,6 +565,12 @@ const Home = () => {
                               className="mt-4 text-base font-medium text-gray-900"
                               src={posts.image}
                             />
+                            {posts.vedio ? ( <video width="520"   controls>
+                              <source src={posts.vedio} type="video/mp4" />
+                              </video>):
+                              (<></>)}
+                           
+
   
                             <h2
                               id={"question-title-" + posts.id}

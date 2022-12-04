@@ -174,16 +174,14 @@ export default function Header() {
               </div>
 
               {account ? (
-                <button className="btn-grad1 px-4 " onClick={disconnectWeb3}>
+                <button className="btn-grad1 px-2 " onClick={disconnectWeb3}>
                   Disconnect Wallet
                 </button>
               ) : (
-                <button className="btn-grad px-4" onClick={connectWeb3}>
+                <button className="btn-grad px-2" onClick={connectWeb3}>
                   Connect Wallet
                 </button>
               )}
-
-              <a href="#">Connect wallet</a>
             </div>
           </nav>
           <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -195,8 +193,8 @@ export default function Header() {
                 <div className="flex">
                   <a href="#" className="-m-1.5 p-1.5">
                     <img
-                      className="w-28"
-                      src="https://raw.githubusercontent.com/JEC-Gryffindors/Python-Components/master/%5Bremoval.ai%5D_tmp-638825f6c4549.png"
+                      className="w-15"
+                      src="https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/LOGOOO'.png"
                     />
                   </a>
                 </div>
@@ -226,12 +224,18 @@ export default function Header() {
                     ))}
                   </div>
                   <div className="py-6">
-                    <a
-                      href="#"
-                      className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-white hover:bg-gray-400/10"
-                    >
-                      Connect wallet
-                    </a>
+                    {account ? (
+                      <button
+                        className="btn-grad1 px-4 "
+                        onClick={disconnectWeb3}
+                      >
+                        Disconnect Wallet
+                      </button>
+                    ) : (
+                      <button className="btn-grad px-4" onClick={connectWeb3}>
+                        Connect Wallet
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
