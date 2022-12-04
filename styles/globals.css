@@ -2,3 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+.bgimg{
+    background: url("https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/MacBook%20Pro%2014_%20-%201.png");
+    background-color: rgb(43, 43, 43);
+    
+}
+
+.animme{
+    animation: text-pop-up-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+
+
+@keyframes text-pop-up-top {
+  0% {
+    transform: translateY(0);
+    transform-origin: 50% 50%;
+    text-shadow: none;
+  }
+  100% {
+    transform: translateY(-30px);
+    transform-origin: 50% 50%;
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+         
+         
+         .btn-grad {
+            background-image: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
+            margin: 5px;
+            padding: 10px 23px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px rgb(55, 55, 55);
+            border-radius: 08px;
+            display: block;
+          }
+
+          .btn-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+           
+         
+          .btn-grad1 {
+            background-image: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%);
+            margin: 5px;
+            padding: 10px 23px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px rgb(55, 55, 55);
+            border-radius: 08px;
+            display: block;
+          }
+
+          .btn-grad1:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         
+         

@@ -1,8 +1,19 @@
 import Head from 'next/head'
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import styles from '../styles/Home.module.css'
-import Content from './Content'
+// import Content from './Content'
+import "@biconomy/web3-auth/dist/src/style.css"
+
 
 export default function Home() {
+  const SocialLoginDynamic = dynamic(
+    () => import("./Hero").then((res) => res.default),
+    {
+      ssr: false,
+    }
+  );
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,7 +22,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <Content />
+      <div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <SocialLoginDynamic />
+          
+        </Suspense>
+      </div>
       </main>
     </div>
   )
