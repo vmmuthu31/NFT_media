@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Link from "next/link";
+import como from "./como.png";
 
 export default function Hero() {
   return (
@@ -48,7 +49,7 @@ export default function Hero() {
                   {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
                   <img
                     className=" animme lg:absolute lg:inset-y-0 lg:left-0 lg:max-w-none"
-                    src="https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/Frame%202.png"
+                    src={como}
                     alt=""
                   />
                 </div>

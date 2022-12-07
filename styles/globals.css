@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bgimg{
-    background: url("https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/MacBook%20Pro%2014_%20-%201.png");
+    background: url("../Assets/bg.png");
     background-color: rgb(43, 43, 43);
     
 }
