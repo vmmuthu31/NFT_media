@@ -52,5 +52,12 @@ truffle compile <br/>
 truffle migrate <br/>
 truffle deploy <br/>
 
+# Demo Pages
+![image](https://user-images.githubusercontent.com/88650559/206165691-3cd11787-a98c-40f5-ba7d-bd7395ea105b.png)
+# Media Page before Subscription(Minting of NFT):
+![image](https://user-images.githubusercontent.com/88650559/206165840-c80f0b96-6c87-41d6-b121-ee96fb6265bb.png)
+# Media Page after Subscription(Minting of NFT):
+![image](https://user-images.githubusercontent.com/88650559/206165934-37ed534f-b2c4-4def-a3e5-230c0e6909a4.png)
+
 # Vedio Link
 Youtube vedio link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
