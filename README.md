@@ -8,10 +8,10 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 
 # Features Provided
 
--> We provide NFT.Storage as a form of storage.
--> We also give users access to a blog.
--> We also offer our consumers memberships so they may access the creators' unique stuff.
-Account abstraction using Biconomy
+-> We provide NFT.Storage as a form of storage. <br/>
+-> We also give users access to a blog. <br/>
+-> We also offer our consumers memberships so they may access the creators' unique stuff. <br/>
+Account abstraction using Biconomy. <br/>
 
 # Targeting Bounties
 
@@ -22,35 +22,35 @@ Account abstraction using Biconomy
 
 # Proposing Features:
 
--> We limit the hours of usage of the user to avoid social media addiction
--> We give an option to trimout the 18+ contents and horror contents.
--> we use NFt.storage to storing and retrieving images and videos from ipfs and filecoin.
--> We use Biconomy Social Login and Account Abstraction to avoid the recurrent use of the web3 authentication
--> We allow only a signed user to access the media.
--> We use TableLand for the relational queries and the API calls.
--> We use the Chingari for the vedio media library
+-> We limit the hours of usage of the user to avoid social media addiction. <br/>
+-> We give an option to trimout the 18+ contents and horror contents. <br/>
+-> we use NFt.storage to storing and retrieving images and videos from ipfs and filecoin. <br/>
+-> We use Biconomy Social Login and Account Abstraction to avoid the recurrent use of the web3 authentication. <br/>
+-> We allow only a signed user to access the media. <br/>
+-> We use TableLand for the relational queries and the API calls. <br/>
+-> We use the Chingari for the vedio media library 
 
 # Tech Stacks
 
--> NEXTJS
--> SOLIDITY
--> NFT.storage (includes the ipfs and filecoin)
--> TableLand
--> Biconomy
--> Truffle
--> We use Chingari for the vedio media library
+-> NEXTJS <br/>
+-> SOLIDITY <br/>
+-> NFT.storage (includes the ipfs and filecoin) <br/>
+-> TableLand <br/>
+-> Biconomy <br/>
+-> Truffle <br/>
+-> We use Chingari for the vedio media library <br/>
 
 # Installation
 
-frontend:
-npm install
-npm run dev
+frontend: <br/>
+npm install <br/>
+npm run dev <br/>
 
 backend:
-npm i -g truffle
-truffle compile
-truffle migrate
-truffle deploy
+npm i -g truffle <br/>
+truffle compile <br/>
+truffle migrate <br/>
+truffle deploy <br/>
 
 # Vedio Link
 Youtube vedio link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
