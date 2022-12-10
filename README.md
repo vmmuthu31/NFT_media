@@ -18,7 +18,7 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 -> Filecoin <br/>
 -> Biconomy <br/>
 -> NFTStorage <br/>
--> Chingari
+-> Chingari <
 
 # Proposing Features:
 
