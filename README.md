@@ -11,7 +11,7 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 -> We provide NFT.Storage as a form of storage. <br/>
 -> We also give users access to a blog. <br/>
 -> We also offer our consumers memberships so they may access the creators' unique stuff. <br/>
--Account abstraction using Biconomy. <br/>
+->Account abstraction using Biconomy. <br/>
 
 # Targeting Bounties
 
