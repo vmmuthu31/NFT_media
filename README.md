@@ -62,4 +62,4 @@ truffle deploy <br/>
 # Vedio Link
 Youtube vedio link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
 
-# Presentat
+# Presentati
