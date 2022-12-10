@@ -63,4 +63,4 @@ truffle deploy <br/>
 Youtube vedio link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
 
 # Presentation Link
-Canva Pres
+Canva Prese
