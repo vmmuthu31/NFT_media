@@ -15,7 +15,7 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 
 # Targeting Bounties
 
--> Filecoin <
+-> Filecoin <b
 -> Biconomy
 -> NFTStorage
 -> Chingari
