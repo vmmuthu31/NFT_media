@@ -46,7 +46,7 @@ frontend: <br/>
 -> npm install <br/>
 -> npm run dev <br/>
 
-backend: <b
+backend: <br
 -> npm i -g truffle <br/>
 -> truffle compile <br/>
 truffle migrate <br/>
