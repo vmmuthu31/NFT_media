@@ -44,7 +44,7 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 
 frontend: <br/>
 -> npm install <br/>
-npm run dev <br/>
+-> npm run dev <br/>
 
 backend:
 npm i -g truffle <br/>
