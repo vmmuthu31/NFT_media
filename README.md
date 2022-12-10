@@ -49,7 +49,7 @@ frontend: <br/>
 backend: <br/>
 -> npm i -g truffle <br/>
 -> truffle compile <br/>
-truffle migrate <br/>
+-> truffle migrate <br/>
 truffle deploy <br/>
 
 # Demo Pages
