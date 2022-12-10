@@ -50,7 +50,7 @@ backend: <br/>
 -> npm i -g truffle <br/>
 -> truffle compile <br/>
 -> truffle migrate <br/>
-truffle deploy <br/>
+-> truffle deploy <br/>
 
 # Demo Pages
 ![image](https://user-images.githubusercontent.com/88650559/206165691-3cd11787-a98c-40f5-ba7d-bd7395ea105b.png)
