@@ -138,8 +138,8 @@ export default function Header() {
           >
             <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
               <img
-                className=" w-16 py-4"
-                src="https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/LOGOOO'.png"
+                className=" w-20 py-4"
+                src="https://www.logoai.com/uploads/output/2022/02/26/13e0bbb1a265a0723712d18d25bb88b3.jpg"
               />
 
               <h1 className="h-8 py-7  text-3xl font-bold text-white">
@@ -192,8 +192,8 @@ export default function Header() {
                 <div className="flex">
                   <a href="#" className="-m-1.5 p-1.5">
                     <img
-                      className="w-15"
-                      src="https://raw.githubusercontent.com/prashantexe/prashant_s_application1-v1.0.4/main/LOGOOO'.png"
+                      className=" w-20 "
+                      src="https://www.logoai.com/uploads/output/2022/02/26/13e0bbb1a265a0723712d18d25bb88b3.jpg"
                     />
                   </a>
                 </div>
