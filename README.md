@@ -18,7 +18,7 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 -> Filecoin <br/>
 -> Biconomy <br/>
 -> NFTStorage <br/>
--> Chingari <br/>
+-> Chingari 
 
 # Proposing Features:
 
@@ -38,19 +38,19 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 -> TableLand <br/>
 -> Biconomy <br/>
 -> Truffle <br/>
--> We use Chingari for the vedio media library <br/>
+-> We use Chingari for the vedio media library 
 
 # Installation
 
 frontend: <br/>
 -> npm install <br/>
--> npm run dev <br/>
+-> npm run dev 
 
 backend: <br/>
 -> npm i -g truffle <br/>
 -> truffle compile <br/>
 -> truffle migrate <br/>
--> truffle deploy <br/>
+-> truffle deploy 
 
 # Demo Pages
 ![image](https://user-images.githubusercontent.com/88650559/206165691-3cd11787-a98c-40f5-ba7d-bd7395ea105b.png)
