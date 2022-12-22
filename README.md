@@ -1,4 +1,4 @@
-# NFT Media
+# NFT Media - Gryffindors
 
 # Social Media in Web3
 
