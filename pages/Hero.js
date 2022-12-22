@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Link from "next/link";
+import Image from "next/image";
 import como from "./como.png";
 
 export default function Hero() {
@@ -44,13 +45,13 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
-                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+              <div className="mt-3 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
+                <div className="mx-auto max-w-md px-8 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-12">
                   {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
-                  <img
-                    className=" animme lg:absolute lg:inset-y-0 lg:left-0 lg:max-w-none"
+                  <Image
+                    alt="Dog"
+                    className=" animme lg:absolute   lg:max-w-3xl"
                     src={como}
-                    alt=""
                   />
                 </div>
               </div>
