@@ -102,7 +102,7 @@ export default function Head() {
   }, [account, provider]);
 
   return (
-    <div className="lg:bg-white">
+    <div className="">
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
@@ -137,14 +137,7 @@ export default function Head() {
             aria-label="Global"
           >
             <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-              <img
-                className=" w-20 py-4"
-                src="https://www.logoai.com/uploads/output/2022/02/26/13e0bbb1a265a0723712d18d25bb88b3.jpg"
-              />
-
-              <h1 className="h-8 py-7  text-3xl font-bold text-dark">
-                NFT Media
-              </h1>
+              <h1 className="text-3xl font-bold text-dark">NFT Media</h1>
             </div>
             <div className="flex lg:hidden">
               <button
@@ -169,24 +162,12 @@ export default function Head() {
                   </Link>
                 ))}
               </div>
-              <div className="text-dark py-3 px-3 ">
-                {account && <div>Address: {truncateEthAddress(account)}</div>}
-              </div>
-              {account ? (
-                <button className="btn-grad1 px-2 " onClick={disconnectWeb3}>
-                  Disconnect Wallet
-                </button>
-              ) : (
-                <button className="btn-grad px-2" onClick={connectWeb3}>
-                  Connect Wallet
-                </button>
-              )}
             </div>
           </nav>
           <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
             <Dialog.Panel
               focus="true"
-              className="fixed inset-0 z-10 overflow-y-auto bg-black px-6 py-6 lg:hidden"
+              className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden"
             >
               <div className="flex h-9 items-center justify-between">
                 <div className="flex">
