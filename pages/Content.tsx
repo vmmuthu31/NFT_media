@@ -400,19 +400,19 @@ const Home = () => {
                     </div>
                     
                   </div>
-                  <div className="grid grid-flow-col px-9 ">
-                    {account && <div className="px-2">Address: {truncateEthAddress(account)}</div>}
+                  <div className="flex mr-auto ml-auto    ">
+                    {account && <div className="px-4"> Address: {truncateEthAddress(account)}</div>}
               
                     {account ? (
                       <button
-                        className="btn-grad1 px-4  "
+                        className="btn-grad1   "
                         onClick={disconnectWeb3}
                       >
-                        Disconnect Wallet
+                         Disconnect
                       </button>
                     ) : (
-                      <button className="btn-grad px-4" onClick={connectWeb3}>
-                        Connect Wallet
+                      <button className="btn-grad " onClick={connectWeb3}>
+                        Connect
                       </button>
                     )}
                     </div>
