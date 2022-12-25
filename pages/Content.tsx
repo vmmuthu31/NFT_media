@@ -28,6 +28,9 @@ import {
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Link from "next/link";
 import Head from "next/head";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 
 
 const navigation = [
@@ -306,8 +309,54 @@ const Home = () => {
                         href="#"
                         className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
                       >
-                        <span className="sr-only">Vedio Upload</span>
-                        <AiOutlineCloudUpload className="h-6 w-6" />
+                         <Popup
+    trigger={<AiOutlineCloudUpload className="h-6 w-6" />}
+    modal
+    nested
+  >
+    {close => (
+      <div className="modal">
+        <button className="close" onClick={close}>
+          &times;
+        </button>
+        <div className="header"> Upload Post </div>
+        <div className="content">
+          {' '}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
+          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
+          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+          <br />
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
+          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
+          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+        </div>
+        <div className="actions">
+          <Popup
+            trigger={<button className="button"> Trigger </button>}
+            position="top center"
+            nested
+          >
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
+              magni omnis delectus nemo, maxime molestiae dolorem numquam
+              mollitia, voluptate ea, accusamus excepturi deleniti ratione
+              sapiente! Laudantium, aperiam doloribus. Odit, aut.
+            </span>
+          </Popup>
+          <button
+            className="button"
+            onClick={() => {
+              console.log('modal closed ');
+              close();
+            }}
+          >
+            close modal
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
+                        
                       </a>
                       <a
                         href="#"
@@ -764,6 +813,8 @@ const Home = () => {
                       <button className="btn-grad px-4"  onClick={connectWeb3}>
                         Subscribe US
                       </button>
+                     
+
                       </div>
 
                     )}
