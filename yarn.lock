@@ -1319,7 +1319,7 @@
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.8.0.tgz"
   "version" "4.8.0"
 
-"@openzeppelin/contracts@^4.2.0", "@openzeppelin/contracts@^4.6.0", "@openzeppelin/contracts@^4.7.3":
+"@openzeppelin/contracts@^4.2.0", "@openzeppelin/contracts@^4.6.0", "@openzeppelin/contracts@^4.7.3", "@openzeppelin/contracts@^4.8.0":
   "integrity" "sha512-AGuwhRRL+NaKx73WKRNzeCxOCOCxpaqF+kp8TJ89QzAipSwZy/NoflkWaL9bywXFRhIzXt8j38sfF7KBKCPWLw=="
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-4.8.0.tgz"
   "version" "4.8.0"
@@ -1594,6 +1594,11 @@
   "version" "4.0.6"
   dependencies:
     "defer-to-connect" "^2.0.0"
+
+"@tableland/evm@^3.0.3":
+  "integrity" "sha512-Ci8QJubb6Z4ipPANALqAPQ9byh0tsRWZREej8QXGqLfHRqCAJfnMRTy2f47Oqq7IQ6Ajcy5holeUr9EtSmXNXA=="
+  "resolved" "https://registry.npmjs.org/@tableland/evm/-/evm-3.0.3.tgz"
+  "version" "3.0.3"
 
 "@tanstack/query-core@4.19.0":
   "integrity" "sha512-q+4GvS05nG2UXDE4ng0NU5SQNhT+VqhRTLNVtgVw1tIKJfG3CyYQpP/JwAdzMB7NEqC8L5oo9NAaORxEQN53dg=="
