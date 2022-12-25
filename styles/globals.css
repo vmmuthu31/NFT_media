@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bgimg{
-    background: url("../Assets/bg.png");
+    background: url("../Assets/bg.png") no-repeat;
     background-color: rgb(43, 43, 43);
     
 }
