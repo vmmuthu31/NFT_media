@@ -56,7 +56,7 @@ backend: <br/>
 
 ![image](https://user-images.githubusercontent.com/88650559/206165691-3cd11787-a98c-40f5-ba7d-bd7395ea105b.png)
 
-# Uploading Post
+# Upload a Post
 ![image](https://user-images.githubusercontent.com/88650559/209459594-10124fbc-e7f4-4f40-8b01-93faf90ef963.png)
 
 # Media Page before Subscription(Minting of NFT):
