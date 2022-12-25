@@ -19,6 +19,7 @@ const nextConfig = {
         "process/browser": require.resolve("process/browser"),
       };
     }
+
     return config;
   },
 };
