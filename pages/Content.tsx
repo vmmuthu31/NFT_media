@@ -260,7 +260,7 @@ const Home = () => {
             {({ open }) => (
               <>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-6">
+                  <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-5">
                     <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                       <div className="flex-shrink-0 flex items-center">
                         <Link href="/">
@@ -269,8 +269,8 @@ const Home = () => {
                       </div>
                     </div>
                     
-                    <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
-                      <div className="flex items-center px-6 py-9 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                    <div className="min-w-0 flex-1 md:px-8  lg:px-0 xl:col-span-6">
+                      <div className="flex items-center lg:visible md:visible  invisible px-6 py-6 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                         <div className="w-full">
                           <label htmlFor="search" className="sr-only">
                             Search
@@ -295,10 +295,10 @@ const Home = () => {
                       </div>
                       
                     </div>
-                    <div className="border-t justify-center border-gray-200 pt-4 ">
-                  <div className="max-w-3xl mx-auto   flex items-center sm:px-6">
+                    <div className="border-t justify-center border-gray-200 pt-4 px-5">
+                  <div className="max-w-3xl mx-auto  flex items-center sm:px-6">
                     <div className="flex-shrink-0">
-                    <div className="flex justify-center py-2 px-4 bg-white rounded-lg shadow">
+                    <div className="flex justify-center px-8 py-2 lg:visible md:visible  invisible bg-white rounded-lg shadow">
                       <a
                         href="#"
                         className="text-sm font-medium pt-1 text-gray-900 hover:underline"
@@ -397,25 +397,26 @@ const Home = () => {
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </a>
+                      
                     </div>
-                    
-                  </div>
-                  <div className="flex mr-auto ml-auto    ">
-                    {account && <div className="px-4"> Address: {truncateEthAddress(account)}</div>}
+<div className="px-5 ">
+                    {account && <div className="lg:visible md:visible  invisible">Address: {truncateEthAddress(account)}</div>}
               
                     {account ? (
                       <button
                         className="btn-grad1   "
                         onClick={disconnectWeb3}
                       >
-                         Disconnect
+                        Disconnect Wallet
                       </button>
                     ) : (
                       <button className="btn-grad " onClick={connectWeb3}>
-                        Connect
+                        Connect Wallet
                       </button>
+                      
                     )}
                     </div>
+                  </div>
                   </div>
                 </div>
                     
