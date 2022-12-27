@@ -2,6 +2,8 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { useCallback, useEffect, useState,Fragment } from "react";
 import Link from "next/link";
 import { Menu, Popover, Transition } from "@headlessui/react";
+import Moralis from "moralis";
+import Web3 from "web3";
 import {
   ChatAltIcon,
   CodeIcon,
@@ -22,9 +24,11 @@ import {
   UserGroupIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import { log } from "console";
-import Head from "next/head";
 
+import { contractABI, contractAddress } from "../Contract";
+
+import Head from "next/head";
+const web3 = new Web3(Web3.givenProvider);
 
 const navigation = [
   { name: "Marketplace", href: "/Tutorials", icon: UserGroupIcon, current: true },
@@ -124,6 +128,30 @@ const Home = () => {
     console.log("Send Msg from NFT Media");
     console.log("The Transaction has been signed with 0x0Ba3f9705314d145885BDdCaDB90f98BBD6C4BF1")
     }
+    
+
+    const MintNFT = async (e) => {
+      e.preventDefault();
+      try {
+        // Attempt to save image to IPFS
+
+        const metadataurl = "https://i.ytimg.com/vi/ncw37ZY8IEY/maxresdefault.jpg"
+        // Interact with smart contract
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+        const response = await contract.methods
+          .mint(metadataurl)
+          .send({ from: user.get("ethAddress") });
+        // Get token id
+        const tokenId = response.events.Transfer.returnValues.tokenURI;
+        // Display alert
+        alert(
+          `NFT successfully minted. Contract address - ${contractAddress} and Token ID - ${tokenId}`
+        );
+      } catch (err) {
+        console.error(err);
+        alert("An error occured!");
+      }
+    };
   return (
       <>
       <Head>
@@ -400,7 +428,7 @@ const Home = () => {
 <button
                   href={product.href}
                   className="btn-grad3"
-                  onClick={buttonclick}
+                  onClick={MintNFT}
                 >
                   Add to Cart<span className="sr-only">, {product.name}</span>
                 </button>

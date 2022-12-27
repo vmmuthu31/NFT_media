@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { MoralisProvider } from "react-moralis";
+
+
 
 import styles from '../styles/Home.module.css'
 // import Content from './Content'
@@ -26,11 +27,13 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
+      
+          <Suspense fallback={<div>Loading...</div>}>
           
-          <SocialLoginDynamic />
+            <SocialLoginDynamic />
           
-        </Suspense>
+          </Suspense>
+        
       </div>
       </main>
     </div>
