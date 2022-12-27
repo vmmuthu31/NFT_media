@@ -7,7 +7,6 @@ Web3 social networks are built on the technology that powers Ethereum and other 
 Being built on blockchain, web3 social networks are decentralized and are thus a class of decentralized applications(dApps).
 
 # Features Provided
-
 -> We provide NFT.Storage as a form of storage. <br/>
 -> We also give users access to a blog. <br/>
 -> We also offer our consumers memberships so they may access the creators' unique stuff. <br/>
