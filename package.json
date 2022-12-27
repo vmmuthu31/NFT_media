@@ -24,6 +24,7 @@
     "eslint-config-next": "13.0.6",
     "fs": "^0.0.1-security",
     "i": "^0.3.7",
+    "moralis": "^2.10.3",
     "net": "^1.0.2",
     "next": "13.0.6",
     "nft.storage": "^7.0.0",
@@ -34,11 +35,13 @@
     "react-dom": "18.2.0",
     "react-file-viewer": "^1.2.1",
     "react-icons": "^4.7.1",
+    "react-moralis": "^1.4.2",
     "reactjs-popup": "^2.0.5",
     "tls": "^0.0.1",
     "truncate-eth-address": "^1.0.2",
     "typescript": "4.9.3",
-    "wagmi": "^0.8.10"
+    "wagmi": "^0.8.10",
+    "web3": "^1.8.1"
   },
   "devDependencies": {
     "assert": "^2.0.0",

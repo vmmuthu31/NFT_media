@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { MoralisProvider } from "react-moralis";
+
 import styles from '../styles/Home.module.css'
 // import Content from './Content'
 import "@biconomy/web3-auth/dist/src/style.css"
