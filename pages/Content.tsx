@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import {
   ChatAltIcon,
   CodeIcon,
@@ -24,6 +26,9 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import Link from "next/link";
 import Head from "next/head";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import {
+  useAccount,
+} from 'wagmi'
 
 const navigation = [
     { name: "Marketplace", href: "/Tutorials", icon: UserGroupIcon, current: false },
@@ -143,6 +148,8 @@ function classNames(...classes: string[]): string {
 }
 
 const Home = () => {
+  const {  isConnected } = useAccount()
+
   return (
     <>
     <Head>
@@ -162,8 +169,8 @@ const Home = () => {
         >
           {({ open }) => (
             <>
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6">
-                <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-5">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+                <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-6">
                   <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                     <div className="flex-shrink-0 flex items-center">
                       <Link href="/">
@@ -196,34 +203,12 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="border-t justify-center border-gray-200 pt-4 px-5">
+                  <div className="border-t justify-center border-gray-200 pt-4  ">
                     <div className="max-w-3xl mx-auto  flex items-center sm:px-6">
-                      <div className="flex-shrink-0">
-                        <div className="flex justify-center px-8 py-2 bg-white rounded-lg shadow">
-                          <a
-                            href="#"
-                            className="text-sm font-medium pt-1 text-gray-900 hover:underline"
-                          >
-                            Go Premium
-                          </a>
-                          <a
-                            href="#"
-                            className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-                          >
-                            <span className="sr-only">Vedio Upload</span>
-                            <AiOutlineCloudUpload className="h-6 w-6" />
-                          </a>
-                          <a
-                            href="#"
-                            className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-                          >
-                            <span className="sr-only">View notifications</span>
-                            <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </a>
-                    </div>
-                   
+                      <div className="flex-shrink-0 px-5">
+                      <ConnectButton  />
                   </div>
-                  <ConnectButton />
+                  
                   </div>
                 </div>
 
@@ -279,6 +264,7 @@ const Home = () => {
                     href="#"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-rose-600 hover:bg-rose-700"
                   >
+                    
                     New Post
                   </a>
 
@@ -430,7 +416,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="mt-4">
-                
+                {isConnected ? (
                      <><h1 className="sr-only">Recent post</h1>
                      <ul role="list" className="space-y-4">
                        {post.map((posts) => (
@@ -649,19 +635,15 @@ const Home = () => {
                          </li>
                        ))}
                      </ul></>
-                    
+                ):(
                       <div className=" flex justify-center ">                      
                       <h2 className="py-3 px-3">Please Subscribe our Channel</h2>
 
                       <button className="btn-grad px-4"  >
                         Subscribe US
                       </button>
-                     
-
                       </div>
-
-
-                  
+)}                  
                 </div>
               </main>
             <aside className="hidden xl:block xl:col-span-4">
@@ -727,6 +709,105 @@ const Home = () => {
                     </div>
                   </div>
                 </section>
+                <div className="flex justify-center px-8 py-2 bg-rose-500 rounded-lg shadow">
+                          <a
+                            href="#"
+                            className="text-sm font-medium pt-1 text-gray-900 hover:underline"
+                          >
+                            Go Premium
+                          </a>
+                          <a
+                            href="#"
+                            className="ml-5 flex-shrink-0 bg-rose-500  border-black rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-black"
+                          >
+                            <Popup
+    trigger={<AiOutlineCloudUpload className="h-6 w-6" />}
+    modal
+    nested
+  >
+    {close => (
+      <div className="modal">
+        <button className="close" onClick={close}>
+          &times;
+        </button>
+        <div className="header">
+           Upload Post </div>
+        <div className="content">
+        <form action="#" method="POST">
+          <div className="shadow sm:rounded-md sm:overflow-hidden">
+            <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
+
+              <div className="grid grid-cols-3 gap-6">
+             
+                <div className="col-span-3">
+                  <label className="block text-sm font-medium text-gray-700">Upload photo</label>
+                  <div className="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
+                    <div className="space-y-1 text-center">
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          htmlFor="file-upload"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                        </label>
+                        <p className="pl-1">or drag and drop</p>
+                      </div>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-3">
+                  <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <div className="mt-1">
+                    <textarea
+                      id="about"
+                      name="about"
+                      rows={3}
+                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                      placeholder=""
+                      defaultValue={''}
+                    />
+                  </div>
+                </div>
+            </div>
+            
+           
+          </div>
+        </form>
+        </div>
+        <div className="actions">
+         <button className=" bg-blue-500 text-sm hover:bg-emerald-400 rounded-xl px-8 py-2">Post</button>
+          
+        </div>
+      </div>
+    )}
+  </Popup></a>
+                          <a
+                            href="#"
+                            className="ml-5 flex-shrink-0 bg-rose-500  border-black rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-black"
+                          >
+                            <span className="sr-only">View notifications</span>
+                            <BellIcon className="h-6 w-6" aria-hidden="true" />
+                      </a>
+                    </div>
               </div>
             </aside>
           </div>
