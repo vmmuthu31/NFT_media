@@ -36,7 +36,7 @@ export default function Hero() {
                           type="submit"
                           className="btn-grad"
                         >
-                          Let's Dive in
+                          Lets Dive in
                         </Link>
                       </div>
                       <p className="mt-3 text-sm text-gray-300 sm:mt-4">

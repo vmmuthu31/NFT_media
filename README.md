@@ -28,7 +28,6 @@ Being built on blockchain, web3 social networks are decentralized and are thus a
 -> SOLIDITY <br/>
 -> NFT.storage (includes the ipfs and filecoin) <br/>
 -> TableLand <br/>
--> Biconomy <br/>
 -> Truffle <br/>
 -> We use Chingari for the vedio media library
 
