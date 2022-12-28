@@ -551,7 +551,7 @@ const Home = () => {
                                  className="mt-4 text-base font-medium text-gray-900"
                                  src={posts.image}
                                />
-                               {posts.vedio ? ( <video width="520"  autoPlay muted>
+                               {posts.vedio ? ( <video width="520"  autoPlay >
                                  <source src={posts.vedio} type="video/mp4" />
                                  </video>):
                                  (<></>)}
