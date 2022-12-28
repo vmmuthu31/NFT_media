@@ -28,6 +28,7 @@ import {
 import { contractABI, contractAddress } from "../Contract";
 
 import Head from "next/head";
+import { useMoralis } from "react-moralis";
 const web3 = new Web3(Web3.givenProvider);
 
 const navigation = [
@@ -128,14 +129,41 @@ const Home = () => {
     console.log("Send Msg from NFT Media");
     console.log("The Transaction has been signed with 0x0Ba3f9705314d145885BDdCaDB90f98BBD6C4BF1")
     }
+        const [modalOpen, setModalOpen] = useState(false);
+        const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+        useEffect(() => {
+            if (isAuthenticated) {
+                // add your logic here
+            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [isAuthenticated]);
     
+        const login = async () => {
+            if (!isAuthenticated) {
+    
+                await authenticate({ signingMessage: "Log in using Moralis" })
+                    .then(function (user) {
+                        console.log("logged in user:", user);
+                        console.log(user?.get("ethAddress"));
+                        setModalOpen(!modalOpen);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    
+        const logOut = async () => {
+            await logout();
+            console.log("logged out");
+        }
 
     const MintNFT = async (e) => {
       e.preventDefault();
       try {
         // Attempt to save image to IPFS
 
-        const metadataurl = "https://i.ytimg.com/vi/ncw37ZY8IEY/maxresdefault.jpg"
+        const metadataurl = "https://bafybeia2aaq267nhfg6bpwhtigolascrd73cg4w43upoutr7iwbxiixjcm.ipfs.dweb.link/Post1.jpg"
         // Interact with smart contract
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         const response = await contract.methods

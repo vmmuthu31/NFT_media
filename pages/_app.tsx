@@ -7,8 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   
   return (
   <MoralisProvider
-      serverUrl="https://mcjmbxttitd.usermoralis.com:2053/server"
-      appId="qhuStMx7fRRNYAtpIOXdqb1Jm9V9eBzqH7bVI1SA"
+  initializeOnMount={false}
     >
   <Component {...pageProps} />
   </MoralisProvider>
