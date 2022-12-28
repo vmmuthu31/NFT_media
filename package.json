@@ -23,6 +23,7 @@
     "crypto-browserify": "^3.12.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "ethers": "^5.7.2",
     "fs": "^0.0.1-security",
     "i": "^0.3.7",
     "net": "^1.0.2",
