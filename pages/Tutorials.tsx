@@ -2,8 +2,13 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { useCallback, useEffect, useState,Fragment } from "react";
 import Link from "next/link";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import Moralis from "moralis";
-import Web3 from "web3";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi"
+import useDebounce from "../hooks/useDebounce"
+import { useSession } from "next-auth/react"
 import {
   ChatAltIcon,
   CodeIcon,
@@ -24,12 +29,10 @@ import {
   UserGroupIcon,
   XIcon,
 } from "@heroicons/react/outline";
-
-import { contractABI, contractAddress } from "../Contract";
+import { mintNFTABI, mintNFTAddress } from "../Contract";
 
 import Head from "next/head";
-import { useMoralis } from "react-moralis";
-const web3 = new Web3(Web3.givenProvider);
+
 
 const navigation = [
   { name: "Marketplace", href: "/Tutorials", icon: UserGroupIcon, current: true },
@@ -129,57 +132,37 @@ const Home = () => {
     console.log("Send Msg from NFT Media");
     console.log("The Transaction has been signed with 0x0Ba3f9705314d145885BDdCaDB90f98BBD6C4BF1")
     }
-        const [modalOpen, setModalOpen] = useState(false);
-        const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
-        useEffect(() => {
-            if (isAuthenticated) {
-                // add your logic here
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [isAuthenticated]);
     
-        const login = async () => {
-            if (!isAuthenticated) {
+    const [tokenId, setTokenId] = useState("")
+    const debouncedValue = useDebounce<string>(tokenId)
+    const { data: session } = useSession()
+  
+    //Preparing a contract
+    const { config } = usePrepareContractWrite({
+      address: mintNFTAddress,
+      abi: mintNFTABI,
+      functionName: "mint",
+      //@ts-ignore
+      args: [parseInt(debouncedValue)],
+      enabled: Boolean(debouncedValue),
+    })
+  
+    //using prepared contract
+    const {
+      write: mintNFT,
+      data: mintData,
+      isLoading: isMintLoading,
+      isSuccess: isMintStarted,
+    } = useContractWrite(config)
+  
+    //waiting for the transaction to finish
+  
+    const { isSuccess: txSuccess, isLoading } = useWaitForTransaction({
+      hash: mintData?.hash,
+    })
+  
+    const isMinted = txSuccess
     
-                await authenticate({ signingMessage: "Log in using Moralis" })
-                    .then(function (user) {
-                        console.log("logged in user:", user);
-                        console.log(user?.get("ethAddress"));
-                        setModalOpen(!modalOpen);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
-        }
-    
-        const logOut = async () => {
-            await logout();
-            console.log("logged out");
-        }
-
-    const MintNFT = async (e) => {
-      e.preventDefault();
-      try {
-        // Attempt to save image to IPFS
-
-        const metadataurl = "https://bafybeia2aaq267nhfg6bpwhtigolascrd73cg4w43upoutr7iwbxiixjcm.ipfs.dweb.link/Post1.jpg"
-        // Interact with smart contract
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
-        const response = await contract.methods
-          .mint(metadataurl)
-          .send({ from: user.get("ethAddress") });
-        // Get token id
-        const tokenId = response.events.Transfer.returnValues.tokenURI;
-        // Display alert
-        alert(
-          `NFT successfully minted. Contract address - ${contractAddress} and Token ID - ${tokenId}`
-        );
-      } catch (err) {
-        console.error(err);
-        alert("An error occured!");
-      }
-    };
   return (
       <>
       <Head>
@@ -456,7 +439,7 @@ const Home = () => {
 <button
                   href={product.href}
                   className="btn-grad3"
-                  onClick={MintNFT}
+                
                 >
                   Add to Cart<span className="sr-only">, {product.name}</span>
                 </button>

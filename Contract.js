@@ -1,5 +1,5 @@
-export const contractAddress = "0x5829804C189aB51103916e4774416ab965A7366D";
-export const contractABI = [
+export const mintNFTAddress = "0xB5AEb56b7e66360d222BcF9b3C8bC561d7d9e3Cd";
+export const mintNFTABI = [
   {
     inputs: [],
     stateMutability: "nonpayable",
