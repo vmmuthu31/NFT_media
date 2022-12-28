@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bgimg{
+    background: url("../Assets/bg.png") no-repeat;
+    background-color: rgb(43, 43, 43);
+    
+}
+
+.animme{
+    animation: text-pop-up-top 1s cubic-bezier(0.50, 0.60, 0.450, 0.940) infinite alternate both;
+
+    
+    
+}
+
+
+
+@keyframes text-pop-up-top {
+  0% {
+    transform: translateY(0);
+    transform-origin: 50% 50%;
+    text-shadow: none;
+  }
+  100% {
+    transform: translateY(-30px);
+    transform-origin: 50% 50%;
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+         
+         
+         .btn-grad {
+            background-image: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
+            margin: 5px;
+            padding: 10px 35px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px rgb(55, 55, 55);
+            border-radius: 10px;
+            display: block;
+          }
+
+          .btn-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+           
+         
+          .btn-grad1 {
+            background-image: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%);
+            margin: 5px;
+            padding: 8px 18px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px rgb(55, 55, 55);
+            border-radius: 08px;
+            display: block;
+          }
+
+          .btn-grad1:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         
+                  
+          .btn-grad3 {
+            background-image: linear-gradient(to right, #16BFFD 0%, #CB3066  51%, #16BFFD  100%);
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+          }
+
+          .btn-grad3:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         
+                   
+         .btn-grad4 {
+          background-image: linear-gradient(to right, #24C6DC 0%, #514A9D  51%, #24C6DC  100%);
+          margin: 10px;
+          padding: 15px 45px;
+          text-align: center;
+          text-transform: uppercase;
+          transition: 0.5s;
+          background-size: 200% auto;
+          color: white;            
+          box-shadow: 0 0 20px #eee;
+          border-radius: 10px;
+          display: block;
+        }
+
+        .btn-grad4:hover {
+          background-position: right center; /* change the direction of the change here */
+          color: #fff;
+          text-decoration: none;
+        }
+
+        .modal {
+          font-size: 12px;
+        }
+        .modal > .header {
+          width: 100%;
+          border-bottom: 1px solid gray;
+          font-size: 18px;
+          text-align: center;
+          padding: 5px;
+        }
+        .modal > .content {
+          width: 100%;
+          padding: 10px 5px;
+        }
+        .modal > .actions {
+          width: 100%;
+          padding: 10px 5px;
+          margin: auto;
+          text-align: center;
+        }
+        .modal > .close {
+          cursor: pointer;
+          position: absolute;
+          display: block;
+          padding: 2px 5px;
+          line-height: 20px;
+          right: -10px;
+          top: -10px;
+          font-size: 25px;
+          background: #ffffff;
+          border-radius: 18px;
+          border: 1px solid #cfcece;
+        }
