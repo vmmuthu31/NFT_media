@@ -15,6 +15,7 @@
     "@heroicons/react": "^1.0.6",
     "@openzeppelin/contracts": "^4.8.0",
     "@rainbow-me/rainbowkit": "^0.8.1",
+    "@rainbow-me/rainbowkit-siwe-next-auth": "^0.1.5",
     "@tableland/evm": "^3.0.3",
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",

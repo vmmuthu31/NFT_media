@@ -29,9 +29,10 @@ import {
   UserGroupIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import { mintNFTABI, mintNFTAddress } from "../Contract";
+import { mintNFTABI, mintNFTAddress } from "../contracts/Contract";
 
 import Head from "next/head";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 
 const navigation = [
@@ -133,8 +134,18 @@ const Home = () => {
     console.log("The Transaction has been signed with 0x0Ba3f9705314d145885BDdCaDB90f98BBD6C4BF1")
     }
     
-    const [tokenId, setTokenId] = useState("")
-    const debouncedValue = useDebounce<string>(tokenId)
+    function createVariables(){
+      var tokenId = [];
+      var arrayLength = products.length;
+      for (var i = 0; i < arrayLength; i++) {
+        tokenId[i] =  products[i].imageSrc;
+      }
+    
+      return tokenId;
+    }
+
+     
+    const debouncedValue = useDebounce<string>(createVariables())
     const { data: session } = useSession()
   
     //Preparing a contract
@@ -143,7 +154,7 @@ const Home = () => {
       abi: mintNFTABI,
       functionName: "mint",
       //@ts-ignore
-      args: [parseInt(debouncedValue)],
+      
       enabled: Boolean(debouncedValue),
     })
   
@@ -163,6 +174,8 @@ const Home = () => {
   
     const isMinted = txSuccess
     
+   
+              
   return (
       <>
       <Head>
@@ -245,6 +258,7 @@ const Home = () => {
                     </div>
                    
                   </div>
+                  <ConnectButton />
                   </div>
                 </div>
                     
@@ -436,13 +450,28 @@ const Home = () => {
                   Sold<span className="sr-only">, {product.name}</span>
                 </a>
                 ):(
-<button
-                  href={product.href}
+  <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                mintNFT?.()
+              }}
+            >
+              
+              {!session && (
+                <button
                   className="btn-grad3"
-                
+                  disabled={
+                    isMintLoading || isLoading 
+                  }
+                  type='submit'
                 >
-                  Add to Cart<span className="sr-only">, {product.name}</span>
+                  {isMintLoading && "Waiting For Approve"}
+                  {isMintStarted && isLoading && !isMinted && "Minting..."}
+                  {!isMintLoading && !isLoading && "Mint"}
+                  {isMinted && "Minted Successfully"}
                 </button>
+              )}
+            </form>
                 )}
                 
               </div>
