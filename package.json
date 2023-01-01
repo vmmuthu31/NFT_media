@@ -34,6 +34,7 @@
     "path": "^0.12.7",
     "path-browserify": "^1.0.1",
     "react": "18.2.0",
+    "react-chat-engine": "^1.11.28",
     "react-dom": "18.2.0",
     "react-file-viewer": "^1.2.1",
     "react-icons": "^4.7.1",
