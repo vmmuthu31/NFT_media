@@ -66,9 +66,9 @@ backend: <br/>
 
 ![image](https://user-images.githubusercontent.com/88650559/206165934-37ed534f-b2c4-4def-a3e5-230c0e6909a4.png)
 
-# Vedio Link
+# Video Link
 
-Youtube vedio link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
+Youtube video link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
 
 # Presentation Link
 
