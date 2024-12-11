@@ -1,51 +1,75 @@
-# Inno-Analysis: Static Analysis Tool for Android Projects
+# NFT Media - Gryffindors
 
-Inno-Analysis is a static analysis tool designed to detect vulnerabilities in Android project files. It features a Flask-based web interface, backend functionality, and database integration for storing and retrieving scan results.
+# Social Media in Web3
 
----
+Web3 social networks are built on the technology that powers Ethereum and other cryptocurrencies- blockchain, which is a transparent digital ledger that can store immutable data.
 
-## Features
+Being built on blockchain, web3 social networks are decentralized and are thus a class of decentralized applications(dApps).
 
-- **Static Code Analysis:**
-  - Scans source files (`.kt`, `.java`, `.xml`, `.json`) for vulnerabilities using regex patterns.
-  - Detects issues like hardcoded API keys, insecure cryptographic algorithms, and sensitive information exposure.
-  
-- **Dependency Analysis:**
-  - Analyzes `build.gradle` files for outdated libraries or insecure dependencies.
+# Features Provided
+-> We provide NFT.Storage as a form of storage. <br/>
+-> We also give users access to a blog. <br/>
+-> We also offer our consumers memberships so they may access the creators' unique stuff. <br/>
+-> Account abstraction using Biconomy. <br/>
 
-- **Database Integration:**
-  - Stores results in an SQLite database (`static_analysis.db`).
+# Targeting Bounties
 
-- **REST API Endpoints:**
-  - `/upload_report` - Uploads JSON vulnerability reports to the database.
-  - `/results` - Fetches stored vulnerabilities.
+-> Filecoin <br/>
+-> Biconomy <br/>
+-> NFTStorage <br/>
+-> Chingari
 
-- **Real-Time Suggestions:**
-  - Provides actionable advice for fixing identified issues.
+# Proposing Features:
 
----
+-> We limit the hours of usage of the user to avoid social media addiction. <br/>
+-> We give an option to trimout the 18+ contents and horror contents. <br/>
+-> we use NFt.storage to storing and retrieving images and videos from ipfs and filecoin. <br/>
+-> We use Biconomy Social Login and Account Abstraction to avoid the recurrent use of the web3 authentication. <br/>
+-> We allow only a signed user to access the media. <br/>
+-> We use TableLand for the relational queries and the API calls. <br/>
+-> We use the Chingari for the vedio media library
 
-## Installation
+# Tech Stacks
 
-### Prerequisites
-- Python 3.8 or higher
-- pip (Python package manager)
+-> NEXTJS <br/>
+-> SOLIDITY <br/>
+-> NFT.storage (includes the ipfs and filecoin) <br/>
+-> TableLand <br/>
+-> Biconomy <br/>
+-> Truffle <br/>
+-> We use Chingari for the vedio media library
 
-### Steps to Install
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/inno-analysis.git
-   cd inno-analysis
+# Installation
 
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate
+frontend: <br/>
+-> npm install <br/>
+-> npm run dev
 
-3. Install required dependencies:
-   ```bash
-   pip install -r requirements.txt
+backend: <br/>
+-> npm i -g truffle <br/>
+-> truffle compile <br/>
+-> truffle migrate <br/>
+-> truffle deploy 
 
-4. Install required dependencies:
-   ```bash
-   python mainapp.py
+# Demo Pages
+
+![image](https://user-images.githubusercontent.com/88650559/206165691-3cd11787-a98c-40f5-ba7d-bd7395ea105b.png)
+
+# Upload a Post
+![image](https://user-images.githubusercontent.com/88650559/209459594-10124fbc-e7f4-4f40-8b01-93faf90ef963.png)
+
+# Media Page before Subscription(Minting of NFT):
+
+![image](https://user-images.githubusercontent.com/88650559/206165840-c80f0b96-6c87-41d6-b121-ee96fb6265bb.png)
+
+# Media Page after Subscription(Minting of NFT):
+
+![image](https://user-images.githubusercontent.com/88650559/206165934-37ed534f-b2c4-4def-a3e5-230c0e6909a4.png)
+
+# Video Link
+
+Youtube video link: https://www.youtube.com/playlist?list=PLrsZIxkQAAZoGEOG8C0_7VVZWdmqamG8W
+
+# Presentation Link
+
+Canva Presentation Link: https://www.canva.com/design/DAFTwgAp0xM/oVZ_qPSIIehDYqC3d_vP8Q/view?utm_content=DAFTwgAp0xM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton#2
